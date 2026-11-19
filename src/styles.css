@@ -363,3 +363,13 @@ body {
     gap: 10px;
   }
 }
+
+.poster-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.poster-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}

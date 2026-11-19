@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { MY_CARD } from "./config";
 import { registerCard } from "./lib/api";
@@ -11,10 +12,12 @@ export default function App() {
   useEffect(() => {
     async function run() {
       if (!MY_CARD.id || !MY_CARD.number) {
-        setNotice("src/config.js 에서 id와 number를 입력해주세요!");
+        setNotice("------------------------");
         return;
       }
+
       const { error, skipped } = await registerCard(MY_CARD);
+
       if (skipped === "local") {
         setNotice(
           "지금은 로컬 미리보기예요. 배포한 주소를 한 번 열면 다른 사람 목록에 내 카드가 올라갑니다."
@@ -23,8 +26,10 @@ export default function App() {
         console.warn("[poster-card] 카드 등록 실패:", error.message);
         setNotice("카드 등록에 실패했어요. 잠시 뒤 새로고침해보세요.");
       }
+
       setReady(true);
     }
+
     run();
   }, []);
 
@@ -32,7 +37,10 @@ export default function App() {
     <main className="page">
       {notice && <p className="notice">{notice}</p>}
 
-      <Ticket card={MY_CARD} />
+      
+      <div className="poster-card">
+        <Ticket card={MY_CARD} />
+      </div>
 
       {ready && <OtherCards myId={MY_CARD.id} />}
     </main>
